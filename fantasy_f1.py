@@ -81,15 +81,24 @@ def populate_pole_pos(driver_list, pole_positions_csv):
     return driver_list
 
 
+def generate_pick_order(driver_list):
+    driver_odds = []
+    for driver in driver_list:
+        if driver.odds_to_win_den > 0:
+            odds = float(driver.odds_to_win_num) / float(driver.odds_to_win_den)
+        else:
+            odds = float(11111)
+        driver_odds.append([driver.last_name, odds, int(driver.pole_position)])
 
+    driver_odds.sort(key=lambda row: row[2])
+    driver_odds.sort(key=lambda row: row[1])
+
+    final_driver_list = []
+    for index, driver in enumerate(driver_odds):
+        final_driver_list.append([index+1, driver[0]])
+
+    return final_driver_list
 
 
 drivers = generate_driver_list('driver_list.csv', 'pole_positions.csv')
-show_drivers(drivers)
-
-
-
-
-
-
-
+generate_pick_order(drivers)
