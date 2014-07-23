@@ -32,7 +32,6 @@ def isolate_num(line_str):
 def parse_paddy_power(driver_list):
     start_str = '<!-- start oddsTable -->'
     page_str = open('odds_page').read().split(start_str)
-    #page_str.pop(0)
 
     for driver in driver_list:
         for odds in page_str:
@@ -53,19 +52,44 @@ def parse_paddy_power(driver_list):
                     driver.odds_to_win_num = odds_num
                     driver.odds_to_win_den = odds_den
 
-    for driver in driver_list:
-        print driver.last_name
-        print driver.odds_to_win_num
-        print driver.odds_to_win_den
+    return driver_list
 
 
-drivers = []
+def generate_driver_list(drivers_csv, pole_positions_csv):
+    drivers = []
+    for line in open(drivers_csv):
+        first_name, last_name, team, number = line.split(',')
+        drivers.append(Driver(first_name, last_name, team, number))
+        
+    drivers = parse_paddy_power(drivers)
+    drivers = populate_pole_pos(drivers, pole_positions_csv)
 
-for line in open("driver_list.csv"):
-    first_name, last_name, team, number = line.split(',')
-    drivers.append(Driver(first_name, last_name, team, number))
+    return drivers
 
 
-parse_paddy_power(drivers)
+def populate_pole_pos(driver_list, pole_positions_csv):
+    poles = []
+    for line in open(pole_positions_csv):
+        pole, driver_name = line.split(',')
+        poles.append([pole, driver_name])
+
+    for pole in poles:
+        for driver in driver_list:
+            if pole[1].strip() == driver.last_name:
+                driver.pole_position = pole[0]
+
+    return driver_list
+
+
+
+
+
+drivers = generate_driver_list('driver_list.csv', 'pole_positions.csv')
+show_drivers(drivers)
+
+
+
+
+
 
 
