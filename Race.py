@@ -8,6 +8,7 @@ class Race:
         self.name = p_name
         self.players = []
         self.drivers = []
+        self.point_scale = {'1': 25, '2': 18, '3': 15, '4': 12, '5': 10, '6': 8, '7': 6, '8': 4, '9': 2, '10': 1}
 
     def __str__(self):
         return self.name
@@ -77,3 +78,4 @@ class Race:
             print "\n" + player.name + ':'
             for driver in player.driver_list:
                 print driver.number + ' ' + driver.first_name + ' ' + driver.last_name
+
