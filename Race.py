@@ -1,5 +1,6 @@
 import Driver
 import Player
+import py_conf
 
 
 class Race:
@@ -20,7 +21,7 @@ class Race:
             return False
 
     def populate_driver_list(self):
-        for line in open('driver_list.csv'):
+        for line in open(py_conf.driver_csv):
             first_name, last_name, team, number = line.split(',')
             self.drivers.append(Driver.Driver(first_name, last_name, team, number.rstrip()))
 
