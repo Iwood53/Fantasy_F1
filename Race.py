@@ -49,9 +49,10 @@ class Race:
             for player in self.players:
                 picked_driver = False
                 while picked_driver is False:
+                    print '\n\n\n'
                     for driver in pop_drivers_list:
                         print driver.number + ' ' + driver.first_name + ' ' + driver.last_name
-                    selection = raw_input(player.name + ' Select a driver by number: ')
+                    selection = raw_input('\n' + player.name + ' Select a driver by number: ')
                     is_driver_ret = Race.is_driver_num(self, selection)
                     if is_driver_ret[0] is True:
                         player.driver_list.append(is_driver_ret[1])
