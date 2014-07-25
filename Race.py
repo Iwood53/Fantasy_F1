@@ -79,3 +79,5 @@ class Race:
             print "\n" + player.name + ':'
             for driver in player.driver_list:
                 print driver.number + ' ' + driver.first_name + ' ' + driver.last_name
+
+

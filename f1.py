@@ -1,24 +1,27 @@
-import Tkinter
-import tkMessageBox
+import Player
+import Driver
+import Race
 import gen_pick_list
+import py_conf
 
+options = '\nFantasy Formula-1\n'
+options += '\n1 - Generate Best Pick Order'
+options += '\n2 - Play Game(no live scoring)'
+options += '\n\nSelect an Option: '
 
-def clk_gen_list():
-    pick_list = gen_pick_list.go(entry.get())
-    pick_list_str = ''
+selection = raw_input(options)
+
+if selection == '1':
+    pick_list = gen_pick_list.go(py_conf.paddy_power_url)
     for driver in pick_list:
-        pick_list_str += str(driver[0]) + ' - ' + driver[1] + '\n'
+        print driver
+    raw_input()
 
-    top = Tkinter.Toplevel()
-    top.title('Pick List')
-    msg = Tkinter.Message(top, text=pick_list_str)
-    msg.pack()
+if selection == '2':
+    race = Race.Race('race')
+    race.populate_driver_list()
+    race.cmdln_set_players()
+    race.cmdln_pick_drivers()
+    race.cmdln_show_player_selection()
+    raw_input()
 
-
-root = Tkinter.Tk()
-root.title("Fantasy F1")
-label = Tkinter.Label(root, text='Enter URL of PaddyPower Page').pack()
-entry = Tkinter.Entry(root)
-entry.pack()
-button = Tkinter.Button(root, text='Generate Pick List', command=clk_gen_list).pack()
-root.mainloop()
