@@ -115,8 +115,3 @@ def go(url):
     return pick_order
 
 
-driver_list = generate_driver_list(py_conf.driver_csv, py_conf.pole_pos_url)
-for driver in driver_list:
-    print driver.last_name
-    print driver.pole_position
-
